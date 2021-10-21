@@ -1,0 +1,15 @@
+{
+	"description": "The CodeIgniter framework",
+	"name": "codeigniter/framework",
+	"type": "project",
+	"homepage": "https://codeigniter.com",
+	"license": "MIT",
+	"support": {
+	},
+	"require": {
+		"php": ">=5.3.7",
+		"pusher/pusher-php-server": "^3.4"
+	},
+	"suggest": {
+	}
+}

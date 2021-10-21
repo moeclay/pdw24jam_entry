@@ -1,0 +1,184 @@
+<div id="app">
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_absensi" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a style="font-family: Nunito;" href="<?php echo site_url('staff');?>" class="navbar-brand"><small>Cari Faktur</small></a>
+                    </div>
+                    <div class="navbar-collapse collapse" id="navbar_absensi" aria-expanded="false" style="height: 1px;">
+                        <ul class="nav navbar-nav navbar-right">
+                            <?php echo form_open("staff/home/cari_record", 'class="navbar-form"'); ?>
+                            <div class="form-group">
+                              <input type="text" name="cari_kinerja" class="form-control" id="cari_kinerja" placeholder="Nomer Faktur" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
+                            </div> 
+                            <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-search"></i> <small>Cari Faktur</small></button>
+                            <?php echo form_close(); ?>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>    
+
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <!--code here-->
+            <h5 style="font-family: Nunito;"><i class="fa fa-laptop"> </i> <b>Form Kinerja</b></h5>
+            <hr>
+    
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <!-- kontent here-->
+                <form class="form-inline" action="<?php echo site_url('staff/home/simpan_kinerja');?>" method="post">
+                    <div class="box-body">
+                        
+                        
+                        <!-- data faktur -->
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="form-group col-md-1">
+                                <label for="tgl_spk" class="control-label">TGL.SPK</label>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <input class="form-control" style="width: 100% !important" name="tgl_spk" type="date" value="<?php echo date('Y-m-d');?>">
+                            </div>
+                        
+                            <div class="form-group col-sm-1">
+                              <label for="no_invoice" class="control-label">NO.INV</label>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <input class="form-control" style="width: 100% !important" name="no_invoice" type="text" placeholder="Contoh : 54252" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="form-group col-sm-1">
+                              <label for="design_edit" class="control-label">TGL.AMBIL</label>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <input class="form-control" style="width: 11% !important" name="tgl1" id="tgl1" type="text" placeholder="<?php echo date('d'); ?>" maxlength="2" title="tanggal" required v-model="hari" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />&nbsp;<b>/</b>&nbsp;
+                                <input class="form-control" style="width: 11% !important" name="tgl2" id="tgl2" type="text" placeholder="<?php echo date('m'); ?>" maxlength="2" title="bulan" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required v-model="bulan" />&nbsp;<b>/</b>&nbsp;
+                                <input class="form-control" style="width: 15% !important" name="tgl3" id="tgl3" type="text" v-model="tahun" maxlength="4" title="tahun" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span style="margin-left:25px;">
+                                    <b>Jam </b>&nbsp;
+                                    <input class="form-control" style="width: 10% !important" name="jam" id="jam" type="text" placeholder="<?php echo date('H'); ?>" maxlength="2" title="jam" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required v-model="jam" />&nbsp;<b>:</b>&nbsp;
+                                    <input class="form-control" style="width: 10% !important" name="menit" id="menit" type="text" placeholder="<?php echo date('i'); ?>" maxlength="2" title="menit" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required  @focusout="handleFocusOut" v-model="menit"/>
+                                </span>
+                                <p class="help-block" style="color: #f00;"><b>Jam diinput sesuai dengan keterangan spk</b></p>
+                            </div>
+                            
+                            <div class="form-group col-sm-1">
+                              <label for="design_edit" class="control-label">DESIGN EDIT</label>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <input class="form-control" style="width: 100% !important" name="design_edit" type="text" placeholder="Contoh : 5 (menit)" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
+                            </div>
+                        </div>
+                        
+
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="form-group col-sm-1">
+                                <label for="penerimaan" class="control-label">OP.STAFF</label>
+                            </div>
+                            <div class="form-group col-sm-11">
+                                <select class="select-form-multiple" style="width: 100%;" name="penerimaan[]" multiple="multiple" required>
+                                <?php 
+                                  foreach($semuaIDKaryawan as $semuaID){
+                                  $nama_penerima = $semuaID->nama." - ".$semuaID->nama_divisi;
+                                ?>
+                                    <option value="<?= $semuaID->id_karyawan; ?>"><?= $nama_penerima; ?></option>
+                                <?php } ?>
+                                </select>
+                           </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="form-group col-sm-1">
+                                <label for="penerimaan" class="control-label">DIVISI</label>
+                            </div>
+                            <div class="form-group col-sm-11">
+                                <select class="select-form-multiple" style="width: 100%;" name="divisi[]" multiple="multiple" required>
+                                <?php 
+                                  foreach($listDivisi as $divID){
+                                  $nama_divisi = $divID->nama_divisi;
+                                ?>
+                                    <option value="<?= $divID->id_divisi; ?>"><?= $nama_divisi; ?></option>
+                                <?php } ?>
+                                </select>
+                           </div>
+                        </div>
+
+                </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer text-center">
+                      <button type="reset" class="btn btn-warning">Reset</button>
+                      <button type="submit" class="btn btn-danger">Simpan</button>
+                    </div>
+                    <!-- /.box-footer -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+<!-- script vuejs -->
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    hari: '',
+    bulan: '',
+    tahun: '<?= date("Y"); ?>',
+    jam: '',
+    menit: ''
+  },
+  watch: {
+    menit: function (val) {
+      console.log(val);
+    }
+  },
+  methods: {
+    handleFocusOut: function(){
+        var tanggal = $("#tgl1").val();
+        var bulan   = $("#tgl2").val();
+        var tahun   = $("#tgl3").val();
+        var jam     = $("#jam").val();
+        var menit   = $("#menit").val();
+
+        Pjam1 = Math.round((new Date()).getTime() / 1000);
+        
+        detik = new Date().getSeconds().toString();
+        format_tgljam_input = (tahun+'-'+bulan+'-'+tanggal+' '+jam+':'+menit+':'+detik);
+        Pjam2 = Math.round(new Date(format_tgljam_input) / 1000);
+
+        console.log('jam_sekarang: '+Pjam1)
+        console.log('jam_input: '+Pjam2)
+        if(Pjam2 < Pjam1){
+          swal("Format tanggal/jam salah.");
+          this.hari = '';
+          this.bulan = '';
+          this.jam = '';
+          this.menit = '';
+        }
+    }
+  },
+  mounted(){
+    // log started 
+  }
+});
+</script>

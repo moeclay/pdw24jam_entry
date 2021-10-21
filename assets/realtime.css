@@ -1,0 +1,19 @@
+#author {
+	position:fixed;
+	z-index:10000;
+	bottom:0;
+	left:0;
+	right:0; 
+	height:40px;
+	margin-left:5px;
+	margin-right:10px;
+}
+
+table thead tr td#judul {
+	font-size: 13px;
+	font-weight: 900;
+}
+
+table td#batas_status {
+	border-left: 3px solid #555;
+}

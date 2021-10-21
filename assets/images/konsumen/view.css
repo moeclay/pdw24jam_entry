@@ -1,0 +1,32 @@
+tr td#b_kode {
+	background-image: url('b_kode.png');
+	background-size: 240px 46px;
+	background-repeat: no-repeat;
+	color: #fff;
+	font-style: bold;
+	font-size: 15px;
+}
+tr td#b_nama {
+	background-image: url('b_nama.png');
+	background-size: 315px 46px;
+	background-repeat: no-repeat;
+	color: #fff;
+	font-style: bold;
+	font-size: 15px;
+}
+tr td#b_rak {
+	background-image: url('b_rak.png');
+	background-size: 230px 46px;
+	background-repeat: no-repeat;
+	color: #fff;
+	font-style: bold;
+	font-size: 15px;
+}
+tr td#b_status {
+	background-image: url('b_status.png');
+	background-size: 333px 46px;
+	background-repeat: no-repeat;
+	color: #fff;
+	font-style: bold;
+	font-size: 15px;
+}
